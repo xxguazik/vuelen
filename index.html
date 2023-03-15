@@ -5,32 +5,51 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>购物车</title>
+    <style>
+        .active{
+            background-color: #ddd;
+        }
+    </style>
 </head>
 <body>
     <!--宿主文件-->
     <div id="app">
-            <h2 :title="title">
+        <h2 :title="title">
                 <!--插值文本 -->
                 {{title}}                
-            </h2>
-             <!-- 输入 -->
+        </h2>
+
+       
+        <p>
+                  <!-- 输入 -->
             <input v-model="len" type="text" v-on:keydown.enter="addCourse"/>
             <button @click="addCourse">添加</button>
+        </p>
+        <p v-if="courses.length==0">
+            没有任何东西
+        </p>
             <!-- 列表渲染 -->
-            <div v-for="c in courses" :key="c">
-                <div>{{ c }}</div>
+        <div v-else>
+            <div v-for="c in courses" :key="c" >
+                <!-- 背景色 -->
+                <!-- <div :class="{active:selctCourse===c}" @click="selctCourse=c"> -->
+                <div :style="{backgroundColor: selctCourse===c ? '#ddd' : 'transparent'}" @click="selctCourse = c">
+                    {{ c }}                    
+                </div>
             </div> 
+        </div>
     </div>    
     <script src="vue.js"></script>
     <script>
         //1.创建vue实例
-       const app= new Vue({
+        const app= new Vue({
             el:'#app',
             data() {
                 return {
                     title: '购物车',
-                    courses:['主板','CPU'],
-                    len:''
+                    courses:[],
+                    len:'',
+                    selctCourse:''
                 }
             },
             methods: {
