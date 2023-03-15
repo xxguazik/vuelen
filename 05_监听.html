@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>输入</title>
+</head>
+<body>
+    
+    <div id="app">
+        <!-- vmodl -->
+        <input v-model="da" type="text" />
+        <div>{{da}}</div>
+        <div>{{num}}</div>
+    </div>
+    <script src="vue.js"></script>
+    <script>
+        const app=new Vue({
+            el:'#app',
+            data() {
+                return {
+                    da:'1',
+                    num:''
+                }
+            },
+            //默认变化后才执行
+            // watch: {
+            //     da(newValue, oldValue) {
+            //         this.num='输入长度'+newValue.length
+            //     }
+            // },
+            watch: {
+                da: {
+                    immediate: true,//立即执行
+                    deep: true,
+                    handler(newValue, oldValue) {
+                        this.num='输入长度'+newValue.length
+                    }
+                }
+            },
+        })
+    </script> 
+</body>
+</html>
