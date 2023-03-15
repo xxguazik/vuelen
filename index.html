@@ -42,6 +42,13 @@
     </div>    
     <script src="vue.js"></script>
     <script>
+        function getcourses(){
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    resolve(['1','2'])
+                }, 2000);
+            })
+        }
         //1.创建vue实例
         const app= new Vue({
             el:'#app',
@@ -64,6 +71,10 @@
                     return this.courses.length+'件' 
                 }
             },
+            async created () {
+                const courses=await getcourses()
+                this.courses=courses
+            }
         })
         
     </script>
