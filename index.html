@@ -4,10 +4,43 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>购物车</title>
 </head>
 <body>
-    <script src="hello.js"></script>
-    hello
+    <!--宿主文件-->
+    <div id="app">
+            <h2 :title="title">
+                <!--插值文本 -->
+                {{title}}                
+            </h2>
+             <!-- 输入 -->
+            <input v-model="len" type="text" v-on:keydown.enter="addCourse"/>
+            <button @click="addCourse">添加</button>
+            <!-- 列表渲染 -->
+            <div v-for="c in courses" :key="c">
+                <div>{{ c }}</div>
+            </div> 
+    </div>    
+    <script src="vue.js"></script>
+    <script>
+        //1.创建vue实例
+       const app= new Vue({
+            el:'#app',
+            data() {
+                return {
+                    title: '购物车',
+                    courses:['主板','CPU'],
+                    len:''
+                }
+            },
+            methods: {
+                addCourse() {
+                    this.courses.push(this.len)//数组添加
+                    this.len=''
+                }
+            },
+        })
+        
+    </script>
 </body>
 </html>
