@@ -38,6 +38,7 @@
                 </div>
             </div> 
         </div>
+        <p>共有：{{mun}}</p>
     </div>    
     <script src="vue.js"></script>
     <script>
@@ -56,6 +57,11 @@
                 addCourse() {
                     this.courses.push(this.len)//数组添加
                     this.len=''
+                }
+            },
+            computed: {
+                mun() {
+                    return this.courses.length+'件' 
                 }
             },
         })
