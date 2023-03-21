@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>购物车</title>
+    <style>
+        .active{
+            background-color: #ddd;
+        }
+    </style>
+</head>
+<body>
+    <!--宿主文件-->
+    <div id="app">
+        <h2 :title="title">
+                <!--插值文本 -->
+                {{title}}                
+        </h2>
+        <p>
+                  <!-- 输入 -->
+            <input v-model="len" type="text" v-on:keydown.enter="addCourse"/>
+            <button @click="addCourse">添加</button>
+        </p>
+        
+             <!-- 列表组件 -->
+        <courses-list :courses="course"></courses-list>
+        <p>共有：{{mun}}</p>
+    </div>    
+    <script src="vue.js"></script>
+    <script>
+        //列表组件
+        Vue.component('courses-list',{
+            data(){
+                return{
+                    selctCourse:'',
+                }               
+            },
+            props:{
+                 courses:[{
+                    type:Array,
+                    default:[]
+                 }]
+            },
+            template:`
+                <p v-if="courses.length==0">
+             没有任何东西
+                </p>
+                <div v-else>
+                    <div v-for="c in courses" :key="c" >
+                        <div :style="{backgroundColor: selctCourse===c ? '#ddd' : 'transparent'}" @click="selctCourse = c">
+                          {{ c }}                    
+                        </div>
+                    </div> 
+                 </div>            
+            `
+        })
+        //1.创建vue实例
+        const app= new Vue({
+            el:'#app',
+            data() {
+                return {
+                    title: '购物车',
+                    course:[],
+                    len:'',
+                    
+                }
+            },
+            methods: {
+                addCourse() {
+                    this.course.push(this.len)//数组添加
+                    this.len=''
+                }
+            },
+            computed: {
+                mun() {
+                    return this.course.length+'件' 
+                }
+            },
+            
+        })
+         
+        
+    </script>
+</body>
+</html>
