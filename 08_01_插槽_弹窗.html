@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>弹窗</title>
+    <style>
+        .message-box {
+            padding: 10px 20px;
+            background:#4fc08d;
+            border:1px solid #42b983;
+        }
+        .message-box-close{
+            float:right;
+        }
+    </style>
+</head>
+<body>
+    
+    <div id="app">
+        <messagebox :show="isShow" @close="isShow=$event">asdasd</messagebox>
+        <button @click="isShow=true">显示</button>
+    </div>
+
+
+    <script src="vue.js"></script>
+    <script>
+        Vue.component('messagebox'/*组件名*/,{            
+            props:["show"],
+            template:`
+            <div class="message-box" v-if="show"> 
+                <slot></slot>
+                <span class="message-box-close" @click="$emit('close',false)">X</span>
+            </div>
+            `
+        })
+        const app=new Vue({
+            el:"#app",
+            data() {
+                return {
+                    isShow: false
+                }
+            },
+          
+            
+            
+        })
+        
+
+
+
+
+    </script>
+</body>
+</html>
